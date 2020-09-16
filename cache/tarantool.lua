@@ -47,6 +47,10 @@ function _M:get(key)
     return tuple[1][2]
 end
 
+function _M:delete(key)
+    self:_cache_space():delete(key)
+end
+
 function _M.new()
     return setmetatable({}, { __index = _M })
 end
