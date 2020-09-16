@@ -1,7 +1,5 @@
 local _M = {};
 
-local log = require('log');
-
 local function _create_cache_space()
     local s = box.schema.create_space(
         'cache',
@@ -45,7 +43,6 @@ function _M:set(key, value)
 end
 
 function _M:get(key)
-    log.debug('Cache: get ' .. key)
     local tuple = self:_cache_space():select(key)
     return tuple.value
 end
