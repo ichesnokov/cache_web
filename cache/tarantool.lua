@@ -44,6 +44,9 @@ end
 
 function _M:get(key)
     local tuple = self:_cache_space():select(key)
+    if not tuple[1] then
+        return
+    end
     return tuple[1][2]
 end
 
