@@ -1,9 +1,5 @@
 local _M = {};
 
---[[
--- По-хорошему, я бы сделал тут ООП, а cache - свойством класса.
---]]
-
 local cache = require('cache/tarantool'):new()
 local log = require('log')
 
