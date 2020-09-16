@@ -44,7 +44,7 @@ end
 
 function _M:get(key)
     local tuple = self:_cache_space():select(key)
-    return tuple.value
+    return tuple[1][2]
 end
 
 function _M.new()
