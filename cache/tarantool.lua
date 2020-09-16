@@ -39,7 +39,7 @@ function _M:exists(key)
 end
 
 function _M:set(key, value)
-    self:_cache_space():upsert({ key, value }, { { '=', 'key', key } })
+    self:_cache_space():upsert({ key, value }, { { '=', 'value', value } })
 end
 
 function _M:get(key)
