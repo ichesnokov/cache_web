@@ -58,7 +58,7 @@ local server = require('http.server').new(
     5000,
     {
         display_errors = true,
-        log_requests   = true,
+        log_requests   = false,
         log_errors     = true,
     }
 )
