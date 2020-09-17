@@ -1,6 +1,7 @@
 local _M = {};
 
 local cache = require('cache/tarantool'):new()
+local json  = require('json')
 
 local function empty_response(status_code)
     return {
@@ -36,7 +37,7 @@ _M.post = function(req)
         return empty_response(409)
     end
 
-    cache:set(key, value)
+    cache:set(key, json.encode(value))
 
     return req:render({ json = { success = true } })
 end
@@ -55,7 +56,7 @@ _M.put = function(req)
         return empty_response(404)
     end
 
-    cache:set(key, value)
+    cache:set(key, json.encode(value))
 
     return req:render({ json = { success = true } })
 end
