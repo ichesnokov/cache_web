@@ -45,7 +45,7 @@ assert(
     router:use(
         function(req)
             local response = req:next()
-            log.error('Call to "' .. req:method() .. ' ' .. req:path() .. '" returned ' .. (response.status or 200))
+            log.info('Call to "' .. req:method() .. ' ' .. req:path() .. '" returned ' .. (response.status or 200))
             return response
         end,
         {}
