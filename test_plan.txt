@@ -14,3 +14,7 @@
 * DELETE /kv/:key
     * Nonexisting key - status 404
     * Existing key - deletes value
+* Rate limiting
+    * Make RATE_LIMIT requests per second. All requests should return
+      appropriate status (not 429)
+    * All further requests made within the same second will return status 429
