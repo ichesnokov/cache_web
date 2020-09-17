@@ -19,7 +19,7 @@ _M.get = function(req)
         return empty_response(404)
     end
 
-    return req:render({ json = { value = cache:get(key) } })
+    return req:render({ json = { value = json.decode(cache:get(key)) } })
 end
 
 _M.post = function(req)
