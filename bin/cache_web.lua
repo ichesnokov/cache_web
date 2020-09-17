@@ -3,6 +3,7 @@
 local router        = require('http.router').new()
 local kv_controller = require('cache.web.controller.kv')
 local log           = require('log')
+local queue         = require('queue')
 
 ---- Set up routes
 
@@ -47,6 +48,43 @@ assert(
             local response = req:next()
             log.info('Call to "' .. req:method() .. ' ' .. req:path() .. '" returned ' .. (response.status or 200))
             return response
+        end,
+        {}
+    )
+)
+
+-- Set up rate limiting
+-- Implemented using an in-memory queue with the limited amount of tasks, where
+-- each task has a limited life time.
+--
+-- It might be worth to extract rate limiting logic into a separate module.
+--
+-- Allow up to 10 requests per second
+local RATE_LIMIT = 3
+box.cfg {}
+
+-- Drop and recreate tube, if any
+if queue.tube.rate_limit then
+    queue.tube.rate_limit:drop()
+end
+
+local rate_limit_tube = queue.create_tube(
+    'rate_limit',
+    'limfifottl',
+    {
+        temporary = true,
+        capacity  = RATE_LIMIT,
+    }
+)
+assert(
+    router:use(
+        function(req)
+            local task = rate_limit_tube:put('', { ttl = 1 });
+            if task then
+                return req:next()
+            end
+            log.info('Rate limit exceeded')
+            return { status = 429 }
         end,
         {}
     )
