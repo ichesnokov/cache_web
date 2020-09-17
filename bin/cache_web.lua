@@ -66,7 +66,7 @@ assert(
 -- It might be worth to extract rate limiting logic into a separate module.
 --
 -- Allow up to RATE_LIMIT requests per second
-local RATE_LIMIT = 2
+local RATE_LIMIT = 10
 
 -- Drop and recreate tube, if any
 if queue.tube.rate_limit then
