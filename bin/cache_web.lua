@@ -59,8 +59,8 @@ assert(
 --
 -- It might be worth to extract rate limiting logic into a separate module.
 --
--- Allow up to 10 requests per second
-local RATE_LIMIT = 3
+-- Allow up to RATE_LIMIT requests per second
+local RATE_LIMIT = 2
 box.cfg {}
 
 -- Drop and recreate tube, if any
@@ -92,7 +92,7 @@ assert(
 
 ---- Set up and run HTTP server
 local server = require('http.server').new(
-    'localhost',
+    '*',
     5000,
     {
         display_errors = true,
