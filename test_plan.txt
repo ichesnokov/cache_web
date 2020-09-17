@@ -4,13 +4,17 @@
 * POST /kv => $data
     * Non-JSON body - returns status 400
     * JSON body with missing key or value - status 400
-    * Nonexisting key - returns status 200 and JSON indicating success
+    * Nonexisting key with simple string as a value - returns status 200 and
+      JSON indicating success. Value is stored to cache.
+    * Nonexisting key with JSON data structure as a value - returns status 200
+      and JSON indicating success. JSON starture is stored to cache (as string).
     * Existing key - returns status 409
 * PUT /kv/:key
     * Non-JSON body - returns status 400
     * JSON body with missing value - status 400
     * Nonexisting key - returns 404
-    * Existing key - modifies value, returns 200
+    * Existing key (value - plain string) - updates cache under ":key" with the given value, returns 200
+    * Existing key (value - data structure) - updates cache under ":key" with the given value, returns 200
 * DELETE /kv/:key
     * Nonexisting key - status 404
     * Existing key - deletes value
