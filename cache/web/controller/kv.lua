@@ -1,7 +1,6 @@
 local _M = {};
 
 local cache = require('cache/tarantool'):new()
-local log = require('log')
 
 local function empty_response(status_code)
     return {
@@ -14,7 +13,6 @@ end
 _M.get = function(req)
     -- Get key from route
     local key = req:stash('key')
-    log.debug('controller.get')
 
     if not cache:exists(key) then
         return empty_response(404)
