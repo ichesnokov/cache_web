@@ -1,0 +1,16 @@
+* GET /kv/:key
+    * Nonexisting key - returns status 404
+    * Existing key - returns status 200 and JSON data with value
+* POST /kv => $data
+    * Non-JSON body - returns status 400
+    * JSON body with missing key or value - status 400
+    * Nonexisting key - returns status 200 and JSON indicating success
+    * Existing key - returns status 409
+* PUT /kv/:key
+    * Non-JSON body - returns status 400
+    * JSON body with missing value - status 400
+    * Nonexisting key - returns 404
+    * Existing key - modifies value, returns 200
+* DELETE /kv/:key
+    * Nonexisting key - status 404
+    * Existing key - deletes value
