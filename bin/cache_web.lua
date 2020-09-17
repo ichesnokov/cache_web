@@ -5,6 +5,12 @@ local kv_controller = require('cache.web.controller.kv')
 local log           = require('log')
 local queue         = require('queue')
 
+---- Configure tarantool
+--
+box.cfg {
+    log = 'cache_web.log',
+}
+
 ---- Set up routes
 
 -- POST /kv
@@ -61,7 +67,6 @@ assert(
 --
 -- Allow up to RATE_LIMIT requests per second
 local RATE_LIMIT = 2
-box.cfg {}
 
 -- Drop and recreate tube, if any
 if queue.tube.rate_limit then

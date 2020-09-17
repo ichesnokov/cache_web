@@ -22,7 +22,6 @@ local function _create_cache_space()
 end
 
 local function _build_cache_space()
-    box.cfg {}
     if not box.space.cache then
         return _create_cache_space()
     end
