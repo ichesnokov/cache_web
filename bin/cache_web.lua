@@ -1,7 +1,7 @@
 #!/usr/bin/env tarantool
 
 local router        = require('http.router').new()
-local kv_controller = require('cache_web.controller.kv')
+local kv_controller = require('cache.web.controller.kv')
 local log           = require('log')
 
 ---- Set up routes
